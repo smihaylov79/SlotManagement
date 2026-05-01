@@ -1,0 +1,36 @@
+{% extends "scheduling/base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Today's Slot Utilization</h2>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Time</th>
+            <th>Booked</th>
+            <th>Capacity</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for s in slots %}
+        <tr class="
+            {% if s.bookings.count >= capacity %}
+                table-danger
+            {% elif s.bookings.count >= threshold %}
+                table-warning
+            {% else %}
+                table-light
+            {% endif %}
+        ">
+            <td>{{ s.slot_time }}</td>
+            <td>{{ s.bookings.count }}</td>
+            <td>{{ capacity }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'book_slot' %}" class="btn btn-primary mt-3">Book a Slot</a>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "scheduling/base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Master Data Configuration</h2>
+
+<form method="post" class="card p-4 shadow-sm">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Work Start</label>
+        <input type="time" name="work_start" class="form-control" value="{{ md.work_start }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Work End</label>
+        <input type="time" name="work_end" class="form-control" value="{{ md.work_end }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Slot Length (minutes)</label>
+        <input type="number" name="slot_minutes" class="form-control" value="{{ md.slot_minutes }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Capacity per Slot</label>
+        <input type="number" name="capacity_per_slot" class="form-control" value="{{ md.capacity_per_slot }}">
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>
+
+{% endblock %}

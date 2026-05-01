@@ -1,0 +1,44 @@
+{% extends "scheduling/base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Schedule Overview</h2>
+
+<form id="dateForm" method="get" class="mb-4">
+    <div class="input-group">
+        <input type="date" name="date" class="form-control" value="{{ date }}" id="dateInput">
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Time</th>
+            <th>Truck Plate</th>
+            <th>Customers</th>
+            <th>Operation</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for s in slots %}
+        {% for b in s.bookings.all %}
+        <tr>
+            <td>{{ s.slot_time }}</td>
+            <td>{{ b.truck_plate }}</td>
+            <td>{{ b.customers }}</td>
+            <td>{{ b.operation_type }}</td>
+            <td>{{ b.notes }}</td>
+        </tr>
+        {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    document.getElementById("dateInput").addEventListener("change", function() {
+        document.getElementById("dateForm").submit();
+    });
+</script>
+
+{% endblock %}
